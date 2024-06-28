@@ -2,7 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ developer ]
+  pull_request:
+    branches: [ developeradd ]
 
 jobs:
   build:
@@ -23,15 +25,25 @@ jobs:
         run: |
           cd back_end
           npm install
+          npm install jest supertest --save-dev
+          npm install jest --save-dev
 
       # Install dependencies for front_end
       - name: Install dependencies for front_end
         run: |
           cd front_end
           npm install
+          
 
       # Run tests for back_end
       - name: Run Jest for back_end
         run: |
           cd back_end
           npm test
+
+      # Optional: Run tests for front_end
+      # Uncomment if you have tests set up for the front_end
+      # - name: Run Jest for front_end
+      #   run: |
+      #     cd front_end
+      #     npm test
