@@ -2,48 +2,38 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ developer ]
-  pull_request:
-    branches: [ developeradd ]
+    branches: [developer]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Verifica e obtém seu repositório sob $GITHUB_WORKSPACE, para que seu job possa acessá-lo
       - uses: actions/checkout@v4
 
-      # Set up Node.js
-      - name: Set up Node.js
+      # Configuração do Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
 
-      # Install dependencies for back_end
-      - name: Install dependencies for back_end
+      # Instalação de dependências para back_end
+      - name: Instalar dependências para back_end
         run: |
           cd back_end
           npm install
           npm install jest supertest --save-dev
-          npm install jest --save-dev
+          npm install mssql --save-dev
 
-      # Install dependencies for front_end
-      - name: Install dependencies for front_end
+      # Instalação de dependências para front_end
+      - name: Instalar dependências para front_end
         run: |
           cd front_end
           npm install
-          
 
-      # Run tests for back_end
-      - name: Run Jest for back_end
+      # Execução dos testes para back_end
+      - name: Executar Jest para back_end
         run: |
           cd back_end
           npm test
-
-      # Optional: Run tests for front_end
-      # Uncomment if you have tests set up for the front_end
-      # - name: Run Jest for front_end
-      #   run: |
-      #     cd front_end
-      #     npm test
